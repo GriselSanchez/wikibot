@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
         try:
             if check_image_size(json_directory, 3072):
-                # tweet(img_directory, tweet)
+                tweet(img_directory, tweet)
                 remove_files(json_directory, img_directory)
             else:
                 print("Image is too big.")
