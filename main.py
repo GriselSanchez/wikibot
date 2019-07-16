@@ -2,26 +2,29 @@ from functions import *
 
 
 if __name__ == "__main__":
+
     tweet_count = 0
+
     while True:
+
         link = ''
         tfa = False
         otd = False
+
         if tweet_count == 4:
-            link = parse_main_page('mp-tfa')
+            link = get_link_from_main_page('mp-tfa')
             print(link)
             tfa = True
             tweet_count += 1
 
         elif tweet_counter == 8:
-            link = parse_main_page('mp-otd')
+            link = get_link_from_main_page('mp-otd')
             print(link)
             otd = True
             tweet_count += 1
 
         elif tweet_counter == 12:
             tweet_count = 0
-            continue
 
         else:
             links = ['https://en.wikipedia.org/wiki/Special:RandomInCategory/Featured_articles',
@@ -55,5 +58,4 @@ if __name__ == "__main__":
         except:
             print("File not found.")
             pass
-
 
