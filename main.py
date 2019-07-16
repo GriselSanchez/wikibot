@@ -1,36 +1,33 @@
-from functions_2 import *
+from functions import *
 
-# Generar un artículo random dentro de una categoría:
-# https://en.wikipedia.org/wiki/Special:RandomInCategory/Category
 
 if __name__ == "__main__":
-    tweet_counter = 0
+    tweet_count = 0
     while True:
         link = ''
         tfa = False
         otd = False
-        if tweet_counter == 4:  # todays featured article is the fourth tweet of the day
+        if tweet_count == 4:
             link = parse_main_page('mp-tfa')
             print(link)
             tfa = True
-            tweet_counter += 1
+            tweet_count += 1
 
-        elif tweet_counter == 8:  # on this day is the eight tweet of the day
+        elif tweet_counter == 8:
             link = parse_main_page('mp-otd')
             print(link)
             otd = True
-            tweet_counter += 1
+            tweet_count += 1
 
-        elif tweet_counter == 24:
-            tweet_counter = 0
+        elif tweet_counter == 12:
+            tweet_count = 0
             continue
 
         else:
             links = ['https://en.wikipedia.org/wiki/Special:RandomInCategory/Featured_articles',
                      'https://en.wikipedia.org/wiki/Special:Random']
-            # 'https://en.wikipedia.org/wiki/USS_Constitution' links like this dont work
             link = random.choice(links)
-            tweet_counter += 1
+            tweet_count += 1
 
         page_soup = parse(link)
 
@@ -52,11 +49,11 @@ if __name__ == "__main__":
                 # tweet(img_directory, tweet)
                 remove_files(json_directory, img_directory)
             else:
-                print("Imagen demasiado grande")
+                print("Image is too big.")
                 remove_files(json_directory, img_directory)
 
         except:
-            print("Archivo no localizado")
+            print("File not found.")
             pass
 
 
