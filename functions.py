@@ -1,11 +1,11 @@
 import urllib.request as req
 from bs4 import BeautifulSoup as Soup
+from google_images_download import google_images_download
+from tokens import *
 import re
 import random
 import json
 import os
-from google_images_download import google_images_download
-from tokens import *
 import tweepy
 import datetime
 
@@ -42,7 +42,7 @@ def remove_unwanted_html(scraped_html):
     replace_html(scraped_html, 'tr')  # table
     replace_html(scraped_html, 'small')  # smaller text
     replace_html(scraped_html, 'span', {'id': 'coordinates'})  # top coordinates
-    replace_html(scraped_html, 'p', {'class': 'mw-empty-elt'})  # ?
+    replace_html(scraped_html, 'p', {'class': 'mw-empty-elt'})
     return scraped_html
 
 
@@ -93,7 +93,7 @@ def get_image(title):
     image_name = title.replace(', ', ' ')
     response = google_images_download.googleimagesdownload()
     arguments = {'keywords': image_name, 'limit': 1, 'extract_metadata': True,
-                 'no_directory': True, 'format': 'jpg', 'size': 'medium', 'print_urls': True, }
+                 'no_directory': True, 'format': 'jpg', 'size': 'medium', 'print_urls': True}
     paths = response.download(arguments)
     print(paths)
 
@@ -141,9 +141,8 @@ def remove_files(jsonfile, images):
         os.remove(i)
     os.remove(jsonfile)
     print("Files removed.")
-    print("")
 
 
 def avoid_timeout(time):
-    for i in range(1, 5):  # heroku's timeout is 30min and I want to tweet every one hour
+    for i in range(1, 5):  # heroku's timeout is 30min and i want to tweet every one hour
         time.sleep(900), print('')  # 900 seconds is 15 min * 4 loops = 1 hour
