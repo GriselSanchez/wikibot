@@ -24,9 +24,9 @@ def parse(url):
     return parsed_html
 
 
-def parse_main_page(idname):
-    page_soup_tfa = parse('https://en.wikipedia.org/wiki/Main_Page')
-    div = page_soup_tfa.findAll('div', {'id': idname})
+def get_link_from_main_page(idname):
+    page_soup = parse('https://en.wikipedia.org/wiki/Main_Page')
+    div = page_soup.findAll('div', {'id': idname})
     link = 'https://en.wikipedia.org' + div[0].p.a['href']
     return link
 
@@ -77,14 +77,14 @@ def fix_format(text):
 
 def get_final_tweet(html, link, tfa, otd):
     paragraph = html[0].p.text
+    paragraph = fix_format(paragraph)
+    paragraph = fix_lenght(paragraph, 220)
     if tfa:
         final_tweet = "Today's Featured Article: " + paragraph + link
     elif otd:
         final_tweet = "On This Day: " + paragraph + link
     else:
         final_tweet = paragraph + link
-    final_tweet = fix_format(final_tweet)
-    final_tweet = fix_lenght(final_tweet, 260)
     print(final_tweet)
     return final_tweet
 
@@ -145,4 +145,6 @@ def remove_files(jsonfile, images):
 
 def avoid_timeout(time):
     for i in range(1, 5):  # heroku's timeout is 30min and i want to tweet every one hour
-        time.sleep(900), print('')  # 900 seconds is 15 min * 4 loops = 1 hour
+        time.sleep(900)  # 900 seconds is 15 min * 4 loops = 1 hour
+        print('')  
+
