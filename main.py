@@ -17,13 +17,13 @@ if __name__ == "__main__":
             tfa = True
             tweet_count += 1
 
-        elif tweet_counter == 8:
+        elif tweet_count == 8:
             link = get_link_from_main_page('mp-otd')
             print(link)
             otd = True
             tweet_count += 1
 
-        elif tweet_counter == 12:
+        elif tweet_count == 12:
             tweet_count = 0
 
         else:
